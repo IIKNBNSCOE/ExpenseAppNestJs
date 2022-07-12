@@ -51,17 +51,18 @@ export class AppService{
     return "Report Created"    
   }
 
-  updateReport(body:{source:string,amount:number},type:"expense"|"income",id:string)
+  updateReport(body:{source?:string,amount?:number},type:"expense"|"income",id:string)
   {
     let f:boolean=false
-    data.report.map((item,index)=>
+    data.report=data.report.map((item,index)=>
     {
       if(item.id === id)
       {
-        item.source=body.source
-        item.amount=body.amount
+       item={...item,...body}
+       console.log(item)
         f=true
       }
+      return item
     })
     console.log(data.report)
     if(f)
